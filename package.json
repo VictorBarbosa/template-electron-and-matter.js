@@ -1,0 +1,21 @@
+{
+  "name": "template-electron-and-matter.js",
+  "version": "1.0.0",
+  "description": "Hello World!",
+  "main": "scripts/main.js",
+  "author": "Jane Doe",
+  "license": "MIT",
+  "scripts": {
+    "electron": "electron .",
+    "tsc": "tsc --watch",
+    "start": "concurrently \"tsc --watch\" \"npm run electron\""
+  },
+  "devDependencies": {
+    "@types/matter-js": "^0.19.6",
+    "electron": "^30.0.3",
+    "electron-reload": "^2.0.0-alpha.1"
+  },
+  "dependencies": {
+    "matter-js": "^0.19.0"
+  }
+}

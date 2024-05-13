@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "CommonJS",
+    "allowJs": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+ 
+    "moduleResolution": "node",
+    "outDir": "./scripts",
+    "rootDir": "./src",
+  
+    "typeRoots": [
+      "./node_modules/@types",
+      "./typings"
+    ],
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+}
