@@ -31,12 +31,13 @@ class Main {
         this.mainWindow = new BrowserWindow({
             width: 800,
             height: 600,
+            fullscreen: true,
             webPreferences: {
                 javascript: true,
                 nodeIntegration: true,
                 sandbox: false,
                 preload: preload,
-                devTools:true
+                devTools: true
 
             }
         });
@@ -44,7 +45,7 @@ class Main {
         this.mainWindow.loadFile('index.html');
 
         // Abre o DevTools (opcional)
-        // this.mainWindow.webContents.openDevTools();
+        this.mainWindow.webContents.openDevTools();
 
         this.mainWindow.on('closed', () => {
             this.mainWindow = null;
