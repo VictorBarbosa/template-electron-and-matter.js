@@ -31,7 +31,8 @@ class Main {
         this.mainWindow = new BrowserWindow({
             width: 800,
             height: 600,
-            fullscreen: true,
+            icon: 'img/starship.png',
+            fullscreen: false,
             webPreferences: {
                 javascript: true,
                 nodeIntegration: true,

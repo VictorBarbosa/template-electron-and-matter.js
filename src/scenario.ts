@@ -1,19 +1,20 @@
 import Matter from 'matter-js'
 
-
 interface ScenarioOption {
     canvas: HTMLCanvasElement,
-    populationSize: number,
-    sprite: string
+    populationSize?: number,
+    sprite?: string
 }
+
 export class Scenario {
     private Engine!: typeof Matter.Engine;
-    private Render!: typeof Matter.Render;
-    private Runner!: typeof Matter.Runner;
-    private Bodies!: typeof Matter.Bodies;
-    private Composite!: typeof Matter.Composite;
-    private engine!: Matter.Engine;
-    constructor(scenarioOption: ScenarioOption) {
+    Render!: typeof Matter.Render;
+    Runner!: typeof Matter.Runner;
+    Bodies!: typeof Matter.Bodies;
+    Composite!: typeof Matter.Composite;
+    engine!: Matter.Engine;
+    render!: Matter.Render
+    constructor(scenarioOption?: ScenarioOption) {
 
         // module aliases
         this.Engine = Matter.Engine;
@@ -27,31 +28,22 @@ export class Scenario {
         this.engine = this.Engine.create();
 
         // create a renderer
-        var render = this.Render.create({
-            element: document.body,
+        this.render = this.Render.create({
             engine: this.engine,
-            canvas: scenarioOption.canvas
+            canvas: scenarioOption?.canvas,
+            options: {
+                showDebug: true,
+                wireframes: false
+            }
         });
+        this.Runner.run(this.engine);
+        this.Render.run(this.render);
+    }
 
-        // create two boxes and a ground
-        var boxA = this.Bodies.rectangle(400, 200, 80, 80);
-        var boxB = this.Bodies.rectangle(450, 50, 80, 80);
-        const trapezoid = this.Bodies.trapezoid(10, 10, 20, 30, 10, { angle: 90, })
-        var ground = this.Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
-
-        // add all of the bodies to the world
-        this.Composite.add(this.engine.world, [boxA, boxB, ground, trapezoid]);
-
-
-        // run the renderer
-        this.Render.run(render);
-
-        // create runner
-        var runner = this.Runner.create();
-
-        // run the engine
-        this.Runner.run(runner, this.engine);
-
+    addGound() {
+        const groundHeight = 10;
+        const ground = this.Bodies.rectangle(window.innerWidth / 2, window.innerHeight - groundHeight, window.innerWidth, groundHeight, { isStatic: true, render: { fillStyle: 'red' } });
+        this.Composite.add(this.engine.world, [ground]);
     }
 
     beforeUpdate(callback: Function) {
